@@ -84,13 +84,13 @@ var checkForMatch = function(){
 var gameReset = function(){
 	cardsInPlay.pop();
 	cardsInPlay.pop();
-	imageReseart();
+	imageReset();
 	gameScore();
 
 }
 
 //setting the image attribute back to the card background
-var imageReseart =function(){
+var imageReset =function(){
 	var gameImage = document.getElementsByTagName("img");
 	for (var i = 0; i < cards.length; i++) {
 		gameImage[i].setAttribute("src", "images/back.png");
