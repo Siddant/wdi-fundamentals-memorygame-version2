@@ -27,8 +27,24 @@ var cards = [
 
 var cardsInPlay = [];
 
+var gameReset =function(){
+	cardsInPlay.pop();
+	cardsInPlay.pop();
+	imageReseart();
+
+}
+
+var imageReseart =function(){
+	var gameImage = document.getElementsByTagName("img");
+	for (var i = 0; i < cards.length; i++) {
+		gameImage[i].setAttribute("src", "images/back.png");
+	}
+
+}
 
 var createBoard = function(){	
+	var btn = document.getElementById("reset");
+	btn.addEventListener("click", gameReset);
 
 	for (var i = 0; i < cards.length; i++) {
    	 // var newListItem = document.createElement('img');
