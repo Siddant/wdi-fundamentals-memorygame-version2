@@ -92,7 +92,7 @@ var gameReset = function(){
 //setting the image attribute back to the card background
 var imageReset =function(){
 	var gameImage = document.getElementsByTagName("img");
-	for (var i = 0; i < cards.length; i++) {
+	for (var i = 0; i < gameImage.length; i++) {
 		gameImage[i].setAttribute("src", "images/back.png");
 	}
 }
