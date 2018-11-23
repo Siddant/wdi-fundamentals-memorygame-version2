@@ -28,6 +28,7 @@ var cards = [
 var cardsInPlay = [];
 var totalGame = 0, playerWon = 0; 
 var totalScore = document.getElementById("score");
+var previousID;
 
 var gameScore = function(){
 	totalScore.innerHTML = "Your Score: " + playerWon +" Out Of: "+ totalGame;
@@ -52,16 +53,16 @@ var createBoard = function(){
 var flipCard = function(){
 	if(cardsInPlay.length < 2){
 		var cardId = this.getAttribute('data-id');
-
-		cardsInPlay.push(cards[cardId].rank);
-		console.log("User flipped " + cards[cardId].rank);
-		console.log(cards[cardId].cardImage);
-		console.log(cards[cardId].suit);
-
-		this.setAttribute("src", cards[cardId].cardImage);
-
-		if(cardsInPlay.length === 2){
-			checkForMatch();
+		if(cardId !== previousID){
+			previousID = cardId;
+			cardsInPlay.push(cards[cardId].rank);
+			console.log("User flipped " + cards[cardId].rank);
+			console.log(cards[cardId].cardImage);
+			console.log(cards[cardId].suit);
+			this.setAttribute("src", cards[cardId].cardImage);
+			if(cardsInPlay.length === 2){
+				checkForMatch();
+			}
 		}
 	}else{
 		alert("Please restart the game");
@@ -82,8 +83,8 @@ var checkForMatch = function(){
 
 
 var gameReset = function(){
-	cardsInPlay.pop();
-	cardsInPlay.pop();
+	cardsInPlay = [];
+	previousID = "";
 	imageReset();
 	gameScore();
 
