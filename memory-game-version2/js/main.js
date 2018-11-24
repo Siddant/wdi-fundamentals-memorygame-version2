@@ -26,6 +26,7 @@ var cards = [
 
 
 var cardsInPlay = [];
+var picked = [];
 var totalGame = 0, playerWon = 0; 
 var totalScore = document.getElementById("score");
 var previousID;
@@ -42,7 +43,9 @@ var createBoard = function(){
 	for (var i = 0; i < cards.length; i++) {
     	var cardElement = document.createElement('img');
     	cardElement.setAttribute("src", "images/back.png");
-     	cardElement.setAttribute("data-id", i);
+    	cardElement.setAttribute("flipped", "false");
+    	//cardElement.setAttribute("data-id", i);
+     	cardElement.setAttribute("data-id", " ");
      	cardElement.addEventListener("click",flipCard);
 		document.getElementById("game-board").appendChild(cardElement); 
 
@@ -50,16 +53,31 @@ var createBoard = function(){
 }
 
 
+var randomCard = function(cardId){
+	while(true){
+		cardId = Math.floor(Math.random()*4);
+		//console.log(cardId+" prev: "+ previousID);
+		if(previousID !== cardId){
+			break;
+		}
+	}
+	return cardId;
+}
+
 var flipCard = function(){
 	if(cardsInPlay.length < 2){
-		var cardId = this.getAttribute('data-id');
-		if(cardId !== previousID){
+
+		var cardId = randomCard(this.getAttribute("data-id"));
+		// var cardId = this.getAttribute("data-id");
+		if( this.getAttribute('flipped') === "false"){
 			previousID = cardId;
 			cardsInPlay.push(cards[cardId].rank);
-			console.log("User flipped " + cards[cardId].rank);
-			console.log(cards[cardId].cardImage);
-			console.log(cards[cardId].suit);
+			//console.log("User flipped " + cards[cardId].rank);
+			//console.log(cards[cardId].cardImage);
+			//console.log(cards[cardId].suit);
 			this.setAttribute("src", cards[cardId].cardImage);
+			this.setAttribute("flipped", "true");
+			this.setAttribute("data-id", cardId);
 			if(cardsInPlay.length === 2){
 				checkForMatch();
 			}
@@ -95,6 +113,9 @@ var imageReset =function(){
 	var gameImage = document.getElementsByTagName("img");
 	for (var i = 0; i < gameImage.length; i++) {
 		gameImage[i].setAttribute("src", "images/back.png");
+		gameImage[i].setAttribute("flipped", "false");
+     	gameImage[i].setAttribute("data-id", " ");
+
 	}
 }
 
